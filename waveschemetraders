@@ -1,0 +1,871 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WaveScheme Traders | M-Pesa Trading</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0b0e14;
+      color: #eef2f6;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* main app container */
+    .app {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 1.5rem 1.2rem;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      background: linear-gradient(135deg, #00c9a7, #0077b6);
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: white;
+      box-shadow: 0 8px 16px rgba(0, 201, 167, 0.25);
+    }
+
+    .logo-text h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #ffffff, #b3e5fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-text span {
+      font-size: 0.75rem;
+      color: #8b9eb0;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      display: block;
+    }
+
+    .user-badge {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: #1a1f2b;
+      padding: 0.6rem 1.2rem 0.6rem 0.8rem;
+      border-radius: 40px;
+      border: 1px solid #2a3240;
+    }
+
+    .avatar {
+      background: #2a3240;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #00c9a7;
+    }
+
+    .user-info p {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .user-info small {
+      font-size: 0.7rem;
+      color: #8b9eb0;
+      display: block;
+    }
+
+    /* balance card */
+    .balance-card {
+      background: linear-gradient(145deg, #141a24, #0f131b);
+      border-radius: 28px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid #212a36;
+      box-shadow: 0 20px 30px -15px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .balance-left h3 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #8b9eb0;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .balance-amount {
+      font-size: 3.2rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .currency {
+      font-size: 1.2rem;
+      color: #00c9a7;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+
+    .balance-right {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #1e2532;
+      color: #eef2f6;
+      border: 1px solid #2f3a4a;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00c9a7, #0096c7);
+      color: #0b0e14;
+      border: none;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(0, 201, 167, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #00b89c, #0088b3);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline:hover {
+      background: #262f3e;
+      border-color: #3e4b5e;
+    }
+
+    /* stats row */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-item {
+      background: #141a24;
+      border-radius: 20px;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid #1f2833;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: #8b9eb0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .stat-value small {
+      font-size: 0.9rem;
+      color: #00c9a7;
+      font-weight: 500;
+      margin-left: 4px;
+    }
+
+    /* mpesa section */
+    .mpesa-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .mpesa-card {
+      background: #141a24;
+      border-radius: 24px;
+      padding: 1.8rem 1.8rem 2rem;
+      border: 1px solid #212a36;
+      box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.15s;
+    }
+
+    .mpesa-card:hover {
+      border-color: #2e3d4f;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .mpesa-icon {
+      background: #00c9a7;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0b0e14;
+      font-size: 1.2rem;
+    }
+
+    .card-header h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .mpesa-card .input-group {
+      margin-bottom: 1.3rem;
+    }
+
+    .mpesa-card label {
+      display: block;
+      font-size: 0.8rem;
+      color: #8b9eb0;
+      margin-bottom: 6px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .mpesa-card input {
+      width: 100%;
+      background: #0e131b;
+      border: 1px solid #2a3240;
+      border-radius: 60px;
+      padding: 0.9rem 1.3rem;
+      font-size: 0.95rem;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      transition: 0.15s;
+      outline: none;
+    }
+
+    .mpesa-card input:focus {
+      border-color: #00c9a7;
+      box-shadow: 0 0 0 3px rgba(0, 201, 167, 0.1);
+    }
+
+    .mpesa-card input::placeholder {
+      color: #4f5f70;
+    }
+
+    .mpesa-card .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 0.9rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      background: #1e2532;
+      border: 1px solid #2f3a4a;
+      color: white;
+    }
+
+    .mpesa-card .btn-primary {
+      background: linear-gradient(135deg, #00c9a7, #0096c7);
+      color: #0b0e14;
+    }
+
+    .mpesa-card .btn-primary:hover {
+      background: linear-gradient(135deg, #00b89c, #0088b3);
+    }
+
+    .mpesa-card .btn i {
+      margin-right: 6px;
+    }
+
+    .mpesa-hint {
+      font-size: 0.7rem;
+      color: #6a7d92;
+      margin-top: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* recent transactions */
+    .transactions {
+      background: #141a24;
+      border-radius: 24px;
+      padding: 1.8rem;
+      border: 1px solid #212a36;
+      margin-bottom: 2rem;
+    }
+
+    .transactions-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .transactions-header h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge {
+      background: #1e2a3a;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      color: #00c9a7;
+      font-weight: 600;
+      border: 1px solid #2f4055;
+    }
+
+    .tx-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tx-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      background: #0e131b;
+      border-radius: 16px;
+      border-left: 3px solid transparent;
+      transition: 0.15s;
+    }
+
+    .tx-item:hover {
+      background: #111924;
+      border-left-color: #00c9a7;
+    }
+
+    .tx-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .tx-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a2432;
+      color: #00c9a7;
+      font-size: 1.1rem;
+    }
+
+    .tx-icon.withdraw {
+      color: #f4a261;
+    }
+
+    .tx-details p {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .tx-details small {
+      font-size: 0.7rem;
+      color: #7b8b9e;
+    }
+
+    .tx-amount {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .tx-amount.positive {
+      color: #00c9a7;
+    }
+
+    .tx-amount.negative {
+      color: #f4a261;
+    }
+
+    /* toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1e2a3a;
+      color: white;
+      padding: 0.9rem 2rem;
+      border-radius: 60px;
+      border: 1px solid #00c9a7;
+      box-shadow: 0 20px 30px -10px black;
+      font-weight: 500;
+      opacity: 0;
+      transition: 0.3s;
+      pointer-events: none;
+      z-index: 999;
+      font-size: 0.9rem;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* footer */
+    .footer {
+      text-align: center;
+      color: #4f5f70;
+      font-size: 0.8rem;
+      padding: 1.5rem 0 0.8rem;
+      border-top: 1px solid #1a212b;
+      margin-top: auto;
+    }
+
+    /* responsive */
+    @media (max-width: 900px) {
+      .mpesa-section {
+        grid-template-columns: 1fr;
+      }
+
+      .balance-amount {
+        font-size: 2.4rem;
+      }
+
+      .balance-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+
+      .balance-right {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .user-badge {
+        align-self: flex-start;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .balance-amount {
+        font-size: 2rem;
+      }
+
+      .balance-right .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.8rem;
+      }
+
+      .tx-item {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .tx-amount {
+        margin-left: auto;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <i class="fas fa-water"></i>
+        </div>
+        <div class="logo-text">
+          <h1>WaveScheme</h1>
+          <span>TRADERS · M-PESA</span>
+        </div>
+      </div>
+      <div class="user-badge">
+        <div class="avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="user-info">
+          <p>Brian Mwangi</p>
+          <small>+254 712 345 678</small>
+        </div>
+      </div>
+    </header>
+
+    <!-- Balance Card -->
+    <section class="balance-card">
+      <div class="balance-left">
+        <h3><i class="fas fa-wallet" style="color:#00c9a7;"></i> Available balance</h3>
+        <div class="balance-amount">
+          <span id="balanceDisplay">12,450</span><span class="currency">KES</span>
+        </div>
+      </div>
+      <div class="balance-right">
+        <button class="btn btn-outline" id="refreshBtn"><i class="fas fa-sync-alt"></i> Refresh</button>
+        <button class="btn btn-primary" id="quickDepositBtn"><i class="fas fa-plus-circle"></i> Quick deposit</button>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-label"><i class="fas fa-arrow-up" style="color:#00c9a7;"></i> Total deposits</div>
+        <div class="stat-value">8,200 <small>KES</small></div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label"><i class="fas fa-arrow-down" style="color:#f4a261;"></i> Total withdrawals</div>
+        <div class="stat-value">3,750 <small>KES</small></div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label"><i class="fas fa-chart-line" style="color:#00c9a7;"></i> Trading P&L</div>
+        <div class="stat-value">+1,240 <small>KES</small></div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label"><i class="fas fa-clock"></i> Pending</div>
+        <div class="stat-value">0 <small>KES</small></div>
+      </div>
+    </div>
+
+    <!-- M-PESA Deposit & Withdrawal -->
+    <div class="mpesa-section">
+      <!-- DEPOSIT CARD -->
+      <div class="mpesa-card">
+        <div class="card-header">
+          <div class="mpesa-icon"><i class="fas fa-arrow-down"></i></div>
+          <h2>Deposit via M-Pesa</h2>
+        </div>
+        <div class="input-group">
+          <label>Phone number (Safaricom)</label>
+          <input type="tel" id="depositPhone" placeholder="254712345678" value="254712345678">
+        </div>
+        <div class="input-group">
+          <label>Amount (KES)</label>
+          <input type="number" id="depositAmount" placeholder="Min 10" value="500">
+        </div>
+        <button class="btn btn-primary" id="depositBtn"><i class="fas fa-paper-plane"></i> Deposit now</button>
+        <div class="mpesa-hint"><i class="fas fa-lock"></i> Secure STK push · Instant confirmation</div>
+      </div>
+
+      <!-- WITHDRAWAL CARD -->
+      <div class="mpesa-card">
+        <div class="card-header">
+          <div class="mpesa-icon" style="background: #f4a261;"><i class="fas fa-arrow-up"></i></div>
+          <h2>Withdraw to M-Pesa</h2>
+        </div>
+        <div class="input-group">
+          <label>Phone number (Safaricom)</label>
+          <input type="tel" id="withdrawPhone" placeholder="254712345678" value="254712345678">
+        </div>
+        <div class="input-group">
+          <label>Amount (KES)</label>
+          <input type="number" id="withdrawAmount" placeholder="Min 50" value="200">
+        </div>
+        <button class="btn" id="withdrawBtn"><i class="fas fa-hand-holding-usd"></i> Withdraw now</button>
+        <div class="mpesa-hint"><i class="fas fa-shield-alt"></i> Processed within 2 minutes</div>
+      </div>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="transactions">
+      <div class="transactions-header">
+        <h2><i class="fas fa-history"></i> Recent transactions</h2>
+        <span class="badge">M-PESA</span>
+      </div>
+      <div class="tx-list" id="txList">
+        <!-- dynamic transactions injected via JS -->
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      WaveScheme Traders · regulated by CMA · M-Pesa is a registered trademark of Safaricom PLC
+    </footer>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast">Processing...</div>
+
+  <script>
+    (function(){
+      // ---------- state ----------
+      let balance = 12450;
+      const transactions = [
+        { id: 1, type: 'deposit', amount: 1500, phone: '254712345678', time: 'Today, 09:24' },
+        { id: 2, type: 'withdraw', amount: 500, phone: '254712345678', time: 'Yesterday, 17:10' },
+        { id: 3, type: 'deposit', amount: 2500, phone: '254712345678', time: '12 Mar, 11:05' },
+        { id: 4, type: 'withdraw', amount: 1200, phone: '254712345678', time: '10 Mar, 14:33' },
+      ];
+
+      // DOM elements
+      const balanceDisplay = document.getElementById('balanceDisplay');
+      const txList = document.getElementById('txList');
+      const toastEl = document.getElementById('toast');
+
+      // helpers
+      function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+
+      function updateBalanceUI() {
+        balanceDisplay.textContent = formatNumber(balance);
+      }
+
+      function showToast(message, isGood = true) {
+        toastEl.textContent = message;
+        toastEl.style.borderColor = isGood ? '#00c9a7' : '#f4a261';
+        toastEl.classList.add('show');
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => {
+          toastEl.classList.remove('show');
+        }, 2800);
+      }
+
+      // render transactions
+      function renderTransactions() {
+        if (!txList) return;
+        txList.innerHTML = transactions.map(tx => {
+          const icon = tx.type === 'deposit' ? 'fa-arrow-down' : 'fa-arrow-up';
+          const iconClass = tx.type === 'deposit' ? '' : 'withdraw';
+          const amountClass = tx.type === 'deposit' ? 'positive' : 'negative';
+          const sign = tx.type === 'deposit' ? '+' : '-';
+          const amountFormatted = formatNumber(tx.amount);
+          const phoneMasked = tx.phone.slice(0, 4) + '****' + tx.phone.slice(-2);
+          return `
+            <div class="tx-item">
+              <div class="tx-left">
+                <div class="tx-icon ${iconClass}"><i class="fas ${icon}"></i></div>
+                <div class="tx-details">
+                  <p>${tx.type === 'deposit' ? 'Deposit via M-Pesa' : 'Withdrawal to M-Pesa'}</p>
+                  <small>${phoneMasked} · ${tx.time}</small>
+                </div>
+              </div>
+              <div class="tx-amount ${amountClass}">${sign} ${amountFormatted} KES</div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // add transaction to top
+      function addTransaction(type, amount, phone) {
+        const now = new Date();
+        const time = 'Just now';
+        const newTx = {
+          id: Date.now(),
+          type: type,
+          amount: amount,
+          phone: phone,
+          time: time
+        };
+        transactions.unshift(newTx);
+        if (transactions.length > 8) transactions.pop();
+        renderTransactions();
+      }
+
+      // validate phone (simple)
+      function isValidPhone(phone) {
+        return /^2547\d{8}$/.test(phone) || /^2541\d{8}$/.test(phone) || /^07\d{8}$/.test(phone) || /^01\d{8}$/.test(phone);
+      }
+
+      // normalize phone to 2547...
+      function normalizePhone(phone) {
+        let cleaned = phone.replace(/\s+/g, '');
+        if (cleaned.startsWith('0')) cleaned = '254' + cleaned.slice(1);
+        if (cleaned.startsWith('7') && cleaned.length === 9) cleaned = '254' + cleaned;
+        if (cleaned.startsWith('1') && cleaned.length === 9) cleaned = '254' + cleaned;
+        return cleaned;
+      }
+
+      // ----- DEPOSIT -----
+      document.getElementById('depositBtn').addEventListener('click', function(e) {
+        const phoneInput = document.getElementById('depositPhone');
+        const amountInput = document.getElementById('depositAmount');
+        let phone = phoneInput.value.trim();
+        const amount = parseFloat(amountInput.value);
+
+        if (!phone) {
+          showToast('Please enter M-Pesa phone number', false);
+          return;
+        }
+        phone = normalizePhone(phone);
+        if (!isValidPhone(phone)) {
+          showToast('Enter a valid Safaricom number (e.g. 254712345678)', false);
+          return;
+        }
+        if (isNaN(amount) || amount < 10) {
+          showToast('Minimum deposit is KES 10', false);
+          return;
+        }
+        if (amount > 100000) {
+          showToast('Maximum deposit is KES 100,000 per transaction', false);
+          return;
+        }
+
+        // simulate M-Pesa STK push
+        showToast(`STK push sent to ${phone.slice(0,4)}****${phone.slice(-2)}. Enter PIN.`, true);
+
+        // simulate successful deposit after 1.4s
+        setTimeout(() => {
+          balance += amount;
+          updateBalanceUI();
+          addTransaction('deposit', amount, phone);
+          showToast(`Deposit of KES ${formatNumber(amount)} successful!`, true);
+          // reset amount field
+          amountInput.value = '500';
+          phoneInput.value = phone;
+        }, 1400);
+      });
+
+      // ----- WITHDRAWAL -----
+      document.getElementById('withdrawBtn').addEventListener('click', function(e) {
+        const phoneInput = document.getElementById('withdrawPhone');
+        const amountInput = document.getElementById('withdrawAmount');
+        let phone = phoneInput.value.trim();
+        const amount = parseFloat(amountInput.value);
+
+        if (!phone) {
+          showToast('Please enter M-Pesa phone number', false);
+          return;
+        }
+        phone = normalizePhone(phone);
+        if (!isValidPhone(phone)) {
+          showToast('Enter a valid Safaricom number (e.g. 254712345678)', false);
+          return;
+        }
+        if (isNaN(amount) || amount < 50) {
+          showToast('Minimum withdrawal is KES 50', false);
+          return;
+        }
+        if (amount > balance) {
+          showToast('Insufficient funds for this withdrawal', false);
+          return;
+        }
+        if (amount > 50000) {
+          showToast('Maximum withdrawal KES 50,000 per transaction', false);
+          return;
+        }
+
+        // simulate withdrawal
+        showToast(`Processing withdrawal to ${phone.slice(0,4)}****${phone.slice(-2)}...`, true);
+
+        setTimeout(() => {
+          balance -= amount;
+          updateBalanceUI();
+          addTransaction('withdraw', amount, phone);
+          showToast(`Withdrawal of KES ${formatNumber(amount)} sent to M-Pesa!`, true);
+          amountInput.value = '200';
+          phoneInput.value = phone;
+        }, 1300);
+      });
+
+      // quick deposit (auto fill)
+      document.getElementById('quickDepositBtn').addEventListener('click', function() {
+        const depositCard = document.querySelector('.mpesa-card:first-child');
+        depositCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.getElementById('depositAmount').value = '1000';
+        document.getElementById('depositPhone').focus();
+      });
+
+      // refresh balance (simulate fetch)
+      document.getElementById('refreshBtn').addEventListener('click', function() {
+        showToast('Balance updated', true);
+        // tiny random change for realism? keep it stable but add a shimmer effect
+        updateBalanceUI();
+      });
+
+      // initial render
+      updateBalanceUI();
+      renderTransactions();
+
+      // also set default phone fields to 254712345678 already done via value
+      // add input formatting: allow only digits + maybe plus
+      // (optional) but fine
+
+      // format amount fields on blur
+      document.querySelectorAll('input[type="number"]').forEach(inp => {
+        inp.addEventListener('blur', function() {
+          if (this.value && !isNaN(this.value)) {
+            // no-op, keep as is
+          }
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
